@@ -1,40 +1,24 @@
-https://pokeapi.co/api/v2/pokemon?limit=50
-
-`https://pokeapi.co/api/v2/pokemon/${id}`
-
-name으로 이동-uP
-
-
----data--=---
-{
-"count": 1328,
-"next": "https://pokeapi.co/api/v2/pokemon?offset=50&limit=50",
-"previous": null,
-"results": [
-{
-"name": "bulbasaur",
-"url": "https://pokeapi.co/api/v2/pokemon/1/"
-},
-{
-"name": "ivysaur",
-"url": "https://pokeapi.co/api/v2/pokemon/2/"
-},
-{
-"name": "venusaur",
-"url": "https://pokeapi.co/api/v2/pokemon/3/"
-},
-{
-"name": "charmander",
-"url": "https://pokeapi.co/api/v2/pokemon/4/"
-},
-{
-"name": "charmeleon",
-"url": "https://pokeapi.co/api/v2/pokemon/5/"
-},
-{
-"name": "charizard",
-"url": "https://pokeapi.co/api/v2/pokemon/6/"
-},
-{
-"name": "squirtle",
-"url": "https://pokeapi.co/api/v2/pokemon/7/"
+    <Container>
+            <Title>Pokemon List</Title>
+            {loading ? (
+                <LoadingWrapper>Loading...</LoadingWrapper>
+            ) : (
+                <PokemonGrid>
+                    {list.map((item, index) => {
+                        const pokemonId = item.url.split('/').filter(Boolean).pop();
+                        return (
+                            <PokemonCard key={index}>
+                                <PokemonLink to={`/detail/${pokemonId}`}>
+                                    <PokemonImage
+                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
+                                        alt={item.name}
+                                    />
+                                    <PokemonName>{item.name}</PokemonName>
+                                </PokemonLink>
+                            </PokemonCard>
+                        );
+                    })}
+                </PokemonGrid>
+            )}
+        </Container>
+    );
